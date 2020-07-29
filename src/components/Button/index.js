@@ -1,5 +1,7 @@
 import styled from 'styled-components';
+ 
 
+//  const Button = styled.(Link) se quiser utilizar um componente no styled-components;
 const Button = styled.button`
     /*background-color: unset;*/
     color: var(--white);
