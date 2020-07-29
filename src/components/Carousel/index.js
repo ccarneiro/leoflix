@@ -13,7 +13,7 @@ function Carousel({ ignoreFirstVideo, category }) {
   const categoryColor = category.cor;
   const categoryExtraLink = category.link_extra;
   const videos = category.videos;
-  console.log("ignoreFirstVideo", ignoreFirstVideo);
+  // console.log("ignoreFirstVideo", ignoreFirstVideo);
   return (
     <VideoCardGroupContainer>
       {categoryTitle && (

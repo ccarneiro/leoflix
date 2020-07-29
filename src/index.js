@@ -6,13 +6,14 @@ import "./index.css";
 import Home from "./pages/Home";
 import CadastroVideo from "./pages/cadastro/Video";
 import CadastroCategoria from "./pages/cadastro/Categoria";
+import Erro404 from "./pages/Erro404";
 
-const Pagina404 = () => (
+/*const Pagina404 = () => (
   <div>
     <h1>Erro 404</h1>
     <h2>Página não encontrada!</h2>
   </div>
-);
+);*/
 
 ReactDOM.render(
   <React.StrictMode>
@@ -21,7 +22,7 @@ ReactDOM.render(
         <Route path="/" component={Home} exact />
         <Route path="/cadastro/video" component={CadastroVideo} exact />
         <Route path="/cadastro/categoria" component={CadastroCategoria} exact />
-        <Route component={Pagina404} />
+        <Route component={Erro404} />
       </Switch>
     </Router>
   </React.StrictMode>,
