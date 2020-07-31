@@ -1,16 +1,17 @@
-import React, { useState } from "react";
-import PageDefault from "../../../components/PageDefault";
-import { Link } from "react-router-dom";
-import FormField from "../../../components/FormField";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import PageDefault from '../../../components/PageDefault';
+import FormField from '../../../components/FormField';
+import Button from '../../../components/Button';
 
 function CadastroCategoria() {
   const categoriaInicial = {
-    nome: "",
-    descricao: "",
-    cor: "#000000",
+    nome: '',
+    descricao: '',
+    cor: '#000000',
   };
   const [categoria, setCategoria] = useState(categoriaInicial);
-  const [categorias, setCategorias] = useState([{ nome: "Teste" }]);
+  const [categorias, setCategorias] = useState([{ nome: 'Teste' }]);
 
   const setValue = (nome, valor) => {
     // console.log("event.target", event.target);
@@ -22,7 +23,7 @@ function CadastroCategoria() {
     // getAttribute = getAttribute.bind(target);
     // console.log("getAttribute", getAttribute("nome"), "value", value);
     // setValue(getAttribute("name"), value);
-    setValue(target.getAttribute("name"), target.value);
+    setValue(target.getAttribute('name'), target.value);
   }
 
   const handleSubmit = (event) => {
@@ -30,6 +31,15 @@ function CadastroCategoria() {
     setCategorias([...categorias, categoria]);
     setCategoria(categoriaInicial);
   };
+
+  useEffect(() => {
+    const URL = 'http://localhost:8080/categorias';
+    fetch(URL)
+      .then(async (response) => {
+        const categoriasList = await response.json();
+        setCategorias([...categoriasList]);
+      });
+  }, []);
 
   return (
     <PageDefault>
@@ -50,18 +60,18 @@ function CadastroCategoria() {
           onChange={handleChange}
         />
         <FormField
-          label="Cor da Categoria:"
+          label="Cor:"
           type="color"
           name="cor"
           value={categoria.cor}
           onChange={handleChange}
         />
-        <button>Cadastrar</button>
+        <Button>Cadastrar</Button>
       </form>
 
       <ul>
-        {categorias.map((categoria, i) => (
-          <li key={`${categoria.nome}${i}`}>{categoria.nome}</li>
+        {categorias.map((cat, i) => (
+          <li key={`${cat.nome}${i}`}>{cat.nome}</li> // eslint-disable-line
         ))}
       </ul>
       <Link to="/">Ir para Home</Link>
