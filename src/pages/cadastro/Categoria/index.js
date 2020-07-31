@@ -5,7 +5,7 @@ import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
 import Button from '../../../components/Button';
 import Ju from '../../../assets/img/juliana.png';
-import Marcos from '../../../assets/img/marcos.png';
+import Marcos from '../../../assets/img/mario.png';
 
 const URL_API = window.location.hostname.includes('localhost')
   ? 'http://localhost:8080/categorias'
