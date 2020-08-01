@@ -73,12 +73,15 @@ const Input = styled.input`
 `;
 
 // eslint-disable-next-line
-function FormField({ label, type, name, value, onChange }) {
+function FormField({ label, type, name, value, onChange, suggestions }) {
   const fieldId = `id_${name}`;
+  const listId = suggestions ? `${fieldId}-list` : null;
+
   // const Input = type === 'textarea' ? 'textarea' : 'input';
   const isTextarea = type === 'textarea';
   const tag = isTextarea ? 'textarea' : 'input';
-  const hasValue = value.length;
+  const hasValue = !!value.length;
+
   return (
     <>
       <FormFieldWrapper>
@@ -91,8 +94,17 @@ function FormField({ label, type, name, value, onChange }) {
             name={name}
             hasValue={hasValue}
             onChange={onChange}
+            autoComplete={listId ? 'off' : null}
+            list={listId}
           />
           <Label.Text>{label}</Label.Text>
+          {suggestions && (
+            <>
+              <datalist id={listId}>
+                {suggestions.map((valor) => (<option key={valor} value={valor} />))}
+              </datalist>
+            </>
+          )}
         </Label>
       </FormFieldWrapper>
     </>
@@ -102,6 +114,7 @@ FormField.defaultProps = {
   type: 'text',
   value: '',
   onChange: () => {},
+  suggestions: null,
 };
 
 FormField.propTypes = {
@@ -110,6 +123,7 @@ FormField.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string,
   onChange: PropTypes.func,
+  suggestions: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default FormField;

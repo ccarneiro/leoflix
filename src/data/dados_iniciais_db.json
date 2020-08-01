@@ -50,30 +50,6 @@
         "text": "Curso sobre aprendizado na Alura",
         "url": "https://alura.com.br/curso-online-aprender-a-aprender-tecnicas-para-seu-autodesenvolvimento"
       }
-    },
-    {
-      "id": 7,
-      "titulo": "Back End Bacanudo",
-      "descricao": "Outra categoria bacanudassa",
-      "cor": "#cbd1ff"
-    },
-    {
-      "titulo": "Terror",
-      "descricao": "Filme de Terror",
-      "cor": "#db0000",
-      "id": 8
-    },
-    {
-      "titulo": "Comédia",
-      "descricao": "Filme de comédia",
-      "cor": "#37ff00",
-      "id": 9
-    },
-    {
-      "titulo": "Teste",
-      "descricao": "Teste",
-      "cor": "#32489f",
-      "id": 10
     }
   ],
   "videos": [
@@ -262,12 +238,6 @@
       "categoriaId": 6,
       "titulo": "Como aprender a programar?",
       "url": "https://www.youtube.com/watch?v=MwCx2qKdbDw&feature=youtu.be"
-    },
-    {
-      "titulo": "Speedrun: Do Zero ao React",
-      "url": "https://www.youtube.com/watch?v=5MzOCxSWrrc",
-      "categoriaId": 1,
-      "id": 32
     }
   ]
 }

@@ -1,5 +1,5 @@
-import React, { useRef, useEffect } from "react";
-import styled from "styled-components";
+import React, { useRef, useEffect } from 'react';
+import styled from 'styled-components';
 
 const Div1 = styled.div`
   width: 100%;
@@ -10,7 +10,7 @@ function Game() {
   const divRef = useRef(null);
 
   useEffect(() => {
-    console.log("divRef", divRef);
+    // console.log('divRef', divRef);
     // this.myP5 = new p5(sketch, this.divRef.current);
   }, [divRef]);
 
@@ -19,9 +19,9 @@ function Game() {
       <Div1 ref={divRef}>
         <iframe
           title="Game"
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: '100%', height: '100%' }}
           src="https://editor.p5js.org/ccarneiro/embed/nqHpn8Y2X"
-        ></iframe>
+        />
       </Div1>
     </>
   );

@@ -1,6 +1,6 @@
-import React from "react";
-import SlickSlider from "react-slick";
-import styled from "styled-components";
+import React from 'react';
+import SlickSlider from 'react-slick';
+import styled from 'styled-components';
 
 const Container = styled.ul`
   padding: 0;
@@ -37,85 +37,81 @@ export const SliderItem = styled.li`
   }
 `;
 
-const NextArrow = ({ className, style, onClick }) => {
-  return (
-    <div
+const NextArrow = ({ className, style, onClick }) => (
+  <div
+    style={{
+      ...style,
+      right: '16px',
+      display: 'block',
+      width: '48px',
+      height: '48px',
+      zIndex: 50,
+      top: 0,
+      bottom: 0,
+      margin: 'auto',
+      transform: 'initial',
+      cursor: 'pointer',
+      color: 'transparent',
+      border: 'none',
+      outline: 0,
+      position: 'absolute',
+      padding: 0,
+    }}
+    onClick={onClick}
+  >
+    <i
+      className="material-icons md-48"
       style={{
         ...style,
-        right: "16px",
-        display: "block",
-        width: "48px",
-        height: "48px",
-        zIndex: 50,
-        top: 0,
-        bottom: 0,
-        margin: "auto",
-        transform: "initial",
-        cursor: "pointer",
-        color: "transparent",
-        border: "none",
-        outline: 0,
-        position: "absolute",
-        padding: 0,
+        fontSize: '48px',
+        height: '48px',
+        width: '48px',
+        lineHeight: '48px',
+        color: 'white',
       }}
-      onClick={onClick}
     >
-      <i
-        className="material-icons md-48"
-        style={{
-          ...style,
-          fontSize: "48px",
-          height: "48px",
-          width: "48px",
-          lineHeight: "48px",
-          color: "white",
-        }}
-      >
-        arrow_forward_ios
-      </i>
-    </div>
-  );
-};
+      arrow_forward_ios
+    </i>
+  </div>
+);
 
-const PrevArrow = ({ className, style, onClick }) => {
-  return (
-    <div
+const PrevArrow = ({ className, style, onClick }) => (
+  <div
+    style={{
+      ...style,
+      left: '25px',
+      display: 'block',
+      width: '48px',
+      height: '48px',
+      zIndex: 50,
+      top: 0,
+      bottom: 0,
+      margin: 'auto',
+      transform: 'initial',
+      cursor: 'pointer',
+      color: 'transparent',
+      border: 'none',
+      outline: 0,
+      position: 'absolute',
+      padding: 0,
+    }}
+    onClick={onClick}
+  >
+    <i
+      className="material-icons md-48"
       style={{
         ...style,
-        left: "25px",
-        display: "block",
-        width: "48px",
-        height: "48px",
-        zIndex: 50,
-        top: 0,
-        bottom: 0,
-        margin: "auto",
-        transform: "initial",
-        cursor: "pointer",
-        color: "transparent",
-        border: "none",
-        outline: 0,
-        position: "absolute",
-        padding: 0,
+        fontSize: '48px',
+        height: '48px',
+        width: '48px',
+        lineHeight: '48px',
+        color: 'white',
       }}
-      onClick={onClick}
     >
-      <i
-        className="material-icons md-48"
-        style={{
-          ...style,
-          fontSize: "48px",
-          height: "48px",
-          width: "48px",
-          lineHeight: "48px",
-          color: "white",
-        }}
-      >
-        arrow_back_ios
-      </i>
-    </div>
-  );
-};
+      arrow_back_ios
+    </i>
+  </div>
+);
 
 const Slider = ({ children }) => (
   <Container>

@@ -1,24 +1,24 @@
-import React from "react";
+import React from 'react';
 import {
   VideoCardGroupContainer,
   // VideoCardList,
   Title,
   ExtraLink,
-} from "./styles";
-import VideoCard from "./components/VideoCard";
-import Slider, { SliderItem } from "../Slider";
+} from './styles';
+import VideoCard from './components/VideoCard';
+import Slider, { SliderItem } from '../Slider';
 
 function Carousel({ ignoreFirstVideo, category }) {
   const categoryTitle = category.titulo;
   const categoryColor = category.cor;
   const categoryExtraLink = category.link_extra;
-  const videos = category.videos;
-  // console.log("ignoreFirstVideo", ignoreFirstVideo);
+  const { videos } = category;
+
   return (
     <VideoCardGroupContainer>
       {categoryTitle && (
         <>
-          <Title style={{ backgroundColor: categoryColor || "red" }}>
+          <Title style={{ backgroundColor: categoryColor || 'red' }}>
             {categoryTitle}
           </Title>
           {categoryExtraLink && (
