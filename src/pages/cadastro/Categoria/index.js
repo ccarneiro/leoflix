@@ -27,6 +27,7 @@ function CadastroCategoria() {
         clearForm();
       })
       .catch((err) => {
+        // eslint-disable-next-line no-console
         console.error('Não foi possível gravar a categoria', err);
       })
       .finally(() => {
@@ -41,12 +42,18 @@ function CadastroCategoria() {
         setCategorias(cats);
       })
       .catch((err) => {
+        // eslint-disable-next-line no-console
         console.error('Não foi possível carregar as categorias', err);
       })
       .finally(() => {
         setLoading(false);
       });
   }, []);
+
+  useEffect(() => {
+    // console.log('Alterao no valor de categoria!', categoria);
+  },
+  [categoria]);
 
   return (
     <PageDefault>
@@ -95,7 +102,7 @@ function CadastroCategoria() {
               <td>{cat.id}</td>
               <td>{cat.titulo}</td>
               <td>{cat.descricao}</td>
-              <td>{cat.cor}</td>
+              <td style={{ backgroundColor: cat.cor }} />
               <td />
             </tr> // eslint-disable-line
           ))}
