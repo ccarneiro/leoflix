@@ -23,14 +23,70 @@ function CadastroVideo() {
     url: '',
     categoria: '',
   };
-  const { values: video, handleChange, clearForm } = useForm(VideoInicial);
+
   const [videos, setVideos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
+  async function validaUrl(urlValue) {
+    let url = urlValue;
+    try {
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        url = `http://${url}`;
+      }
+      console.log('url', url);
+      const response = await fetch(url, {
+        method: 'HEAD',
+        mode: 'no-cors',
+      });
+      console.log('valido', response);
+    } catch (err) {
+      console.log('invalido');
+      return false;
+    }
+    console.log('return true');
+    return true;
+  }
+
+  function validate(valores) {
+    const err = {};
+    if (!valores.titulo || !valores.titulo.length) {
+      err.titulo = 'Titulo é obrigatório';
+    } else if (valores.titulo && valores.titulo.length <= 2) {
+      err.titulo = 'Titulo deve ter no mínimo 2 caracteres';
+    }
+    console.log('validaUrl(valores.url)', validaUrl(valores.url));
+    if (!valores.url || !valores.url.length) {
+      err.url = 'Url é obrigatório';
+    } /* else if (!validaUrl(valores.url)) {
+      err.url = 'Url é inválida';
+    } */
+
+    if (!valores.categoria || !valores.categoria.length) {
+      err.categoria = 'Categoria é obrigatório';
+    } else if (categorias && !categorias.find((c) => c.titulo === valores.categoria)) {
+      err.categoria = 'Categoria inválida';
+    }
+    return err;
+  }
+
+  const {
+    values: video, handleChange, clearForm, errors, showErrors, handleBlur, markTouched,
+  } = useForm({ initialValues: VideoInicial, validate });
+
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    const hasError = () => !!Object.keys(errors).length;
+
+    if (hasError()) {
+      markTouched();
+      setTimeout(() => {
+        window.alert('Existem erros no cadastro do vídeo!');
+      });
+      return;
+    }
 
     const categoriaEscolhida = categorias.find((c) => c.titulo === video.categoria);
 
@@ -91,6 +147,9 @@ function CadastroVideo() {
           name="titulo"
           value={video.titulo}
           onChange={handleChange}
+          onBlur={handleBlur}
+          errors={errors}
+          showErrors={showErrors}
         />
         <FormField
           label="Url:"
@@ -98,8 +157,10 @@ function CadastroVideo() {
           name="url"
           value={video.url}
           onChange={handleChange}
+          onBlur={handleBlur}
+          errors={errors}
+          showErrors={showErrors}
         />
-
         <FormField
           label="Categoria:"
           type="text"
@@ -107,6 +168,9 @@ function CadastroVideo() {
           value={video.categoria}
           onChange={handleChange}
           suggestions={categorias.map((categoria) => categoria.titulo)}
+          onBlur={handleBlur}
+          errors={errors}
+          showErrors={showErrors}
         />
         <DivPosCadastroCategoria>
           <Link to="/cadastro/categoria">Cadastrar categoria</Link>

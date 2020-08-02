@@ -60,6 +60,10 @@ const Input = styled.input`
     transform: scale(0.6) translateY(-10px);
   }
 
+  &:focus.error {
+    border-bottom-color: red;
+  }
+
   ${function notEmpty({ hasValue }) {
     return (
       hasValue
@@ -72,8 +76,17 @@ const Input = styled.input`
   }}
 `;
 
+const Error = styled.span`
+  display: block;
+  position: absolute;
+  font-weight: bold;
+  color: #ff0000;
+  bottom: -24px;
+  left: 16px;
+`;
+
 // eslint-disable-next-line
-function FormField({ label, type, name, value, onChange, suggestions }) {
+function FormField({ label, type, name, value, onChange, onBlur, suggestions, errors, showErrors }) {
   const fieldId = `id_${name}`;
   const listId = suggestions ? `${fieldId}-list` : null;
 
@@ -94,17 +107,23 @@ function FormField({ label, type, name, value, onChange, suggestions }) {
             name={name}
             hasValue={hasValue}
             onChange={onChange}
+            onBlur={onBlur}
             autoComplete={listId ? 'off' : null}
             list={listId}
+            className={((showErrors || {})[name]) && 'error'}
           />
           <Label.Text>{label}</Label.Text>
           {suggestions && (
             <>
               <datalist id={listId}>
-                {suggestions.map((valor) => (<option key={valor} value={valor} />))}
+                {
+                // eslint-disable-next-line jsx-a11y/control-has-associated-label
+                suggestions.map((valor) => (<option key={valor} value={valor} />))
+                }
               </datalist>
             </>
           )}
+          {(showErrors || {})[name] && <Error>{(errors || {})[name]}</Error>}
         </Label>
       </FormFieldWrapper>
     </>
@@ -114,7 +133,10 @@ FormField.defaultProps = {
   type: 'text',
   value: '',
   onChange: () => {},
+  onBlur: () => {},
   suggestions: null,
+  errors: {},
+  showErrors: {},
 };
 
 FormField.propTypes = {
@@ -123,7 +145,12 @@ FormField.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string,
   onChange: PropTypes.func,
+  onBlur: PropTypes.func,
   suggestions: PropTypes.arrayOf(PropTypes.string),
+  errors: PropTypes.objectOf(PropTypes.any),
+  showErrors: PropTypes.objectOf(PropTypes.any),
+  // errors: PropTypes.objectOf(PropTypes.object),
+  // showErrors: PropTypes.objectOf(PropTypes.object),
 };
 
 export default FormField;

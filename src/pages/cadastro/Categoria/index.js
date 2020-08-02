@@ -13,12 +13,38 @@ function CadastroCategoria() {
     descricao: '',
     cor: '#000000',
   };
-  const { values: categoria, handleChange, clearForm } = useForm(categoriaInicial);
+
+  function validate(valores) {
+    const err = {};
+    if (!valores.titulo || !valores.titulo.length) {
+      err.titulo = 'Titulo é obrigatório';
+    } else if (valores.titulo && valores.titulo.length <= 2) {
+      err.titulo = 'Titulo deve ter no mínimo 2 caracteres';
+    }
+    if (!valores.cor) {
+      err.cor = 'Cor é obrigatório';
+    }
+    return err;
+  }
+
+  const {
+    values: categoria, handleChange, clearForm, errors, showErrors, handleBlur, markTouched,
+  } = useForm({ initialValues: categoriaInicial, validate });
   const [categorias, setCategorias] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const hasError = () => !!Object.keys(errors).length;
+
+    if (hasError()) {
+      markTouched();
+      setTimeout(() => {
+        window.alert('Existem erros no cadastro de categoria!');
+      });
+      return;
+    }
+
     setLoading(true);
     categoriasRepository.create(categoria)
       .then(() => categoriasRepository.getAll())
@@ -50,11 +76,6 @@ function CadastroCategoria() {
       });
   }, []);
 
-  useEffect(() => {
-    // console.log('Alterao no valor de categoria!', categoria);
-  },
-  [categoria]);
-
   return (
     <PageDefault>
       <h1>Cadastro de Categoria:</h1>
@@ -65,6 +86,9 @@ function CadastroCategoria() {
           name="titulo"
           value={categoria.titulo}
           onChange={handleChange}
+          onBlur={handleBlur}
+          errors={errors}
+          showErrors={showErrors}
         />
         <FormField
           label="Descrição da Categoria:"
@@ -72,6 +96,9 @@ function CadastroCategoria() {
           name="descricao"
           value={categoria.descricao}
           onChange={handleChange}
+          onBlur={handleBlur}
+          errors={errors}
+          showErrors={showErrors}
         />
         <FormField
           label="Cor:"
@@ -79,6 +106,9 @@ function CadastroCategoria() {
           name="cor"
           value={categoria.cor}
           onChange={handleChange}
+          onBlur={handleBlur}
+          errors={errors}
+          showErrors={showErrors}
         />
         <Button>Cadastrar</Button>
       </form>
